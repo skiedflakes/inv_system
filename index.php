@@ -6,7 +6,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Gateway Garden Cafe</title>
+		<title>Inventory System</title>
 		<link rel="stylesheet" type="text/css" href="assets/css/bootstrap.min.css">
 		<link rel="stylesheet" type="text/css" href="assets/icons/css/all.min.css">
 		<style type="text/css">
@@ -135,7 +135,7 @@
 		<main role="main" class="container">
 		    <div class="container">
 		        <div class="card card-container">
-		        	<div class="text-center h3 mb-4">Gateway Garden Cafe  <i class="fa fa-mug-hot" style="color: 'gray'">  </i></div>
+		        	<div class="text-center h3 mb-4">INVENTORY SYSTEM</div>
 
 		            <form id="formLogin">
 		            	<div class="input-group mb-2">

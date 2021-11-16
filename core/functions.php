@@ -74,23 +74,28 @@
 	}
 
 	function stock_in_qty($product_id, $date, $conn){
-		$stock_in_qty = mysqli_fetch_array(mysqli_query($conn, "SELECT sum(quantity) as qty FROM `tbl_stocks` WHERE date_added = '$date' AND product_id = '$product_id'"));
+		$stock_in_qty = mysqli_fetch_array(mysqli_query($conn, "SELECT COUNT(stock_id) as qty FROM `tbl_stocks` WHERE date_added <= '$date' AND product_id = '$product_id'"));
 
 		return $stock_in_qty[0]?$stock_in_qty[0]:0;
 	}
 
 	function stock_out_qty($product_id, $date, $conn){
-		$stock_out_qty = mysqli_fetch_array(mysqli_query($conn, "SELECT sum(b.quantity)-sum(b.returned_quantity) as qty FROM `tbl_sales_order` a INNER JOIN `tbl_sales_order_detail` b WHERE a.sales_order_id = b.sales_order_id AND a.status = 1 AND b.date_added <= '$date' AND b.product_id = '$product_id'"));
+		$stock_out_qty = mysqli_fetch_array(mysqli_query($conn, "SELECT COUNT(stock_id) as qty FROM `tbl_stocks` WHERE date_added <= '$date' AND product_id = '$product_id' AND status='Malfunctioned'"));
+
+		return $stock_out_qty[0]?$stock_out_qty[0]:0;
+	}
+
+	function for_repair($product_id, $date, $conn){
+		$stock_out_qty = mysqli_fetch_array(mysqli_query($conn, "SELECT COUNT(stock_id) as qty FROM `tbl_stocks` WHERE date_added <= '$date' AND product_id = '$product_id' AND status='Repair'"));
 
 		return $stock_out_qty[0]?$stock_out_qty[0]:0;
 	}
 
 	function get_remaining_qty($product_id, $date, $conn){
-		$sold_qty = mysqli_fetch_array(mysqli_query($conn, "SELECT sum(b.quantity) - sum(b.returned_quantity) as qty FROM `tbl_sales_order` a INNER JOIN `tbl_sales_order_detail` b WHERE a.sales_order_id = b.sales_order_id AND a.status = 1 AND b.date_added <= '$date' AND b.product_id = '$product_id'"));
+		$qty = mysqli_fetch_array(mysqli_query($conn, "SELECT COUNT(stock_id) as qty from tbl_stocks where product_id ='$product_id' and status ='Healthy'"));
 
-		$get_stock_qty = mysqli_fetch_array(mysqli_query($conn, "SELECT sum(quantity) as qty FROM `tbl_stocks` WHERE date_added <= '$date' AND product_id = '$product_id'"));
-
-		$total_remaining_qty = $get_stock_qty[0] - $sold_qty[0];
+		$total_remaining_qty = $qty[0];
+	
 
 		return $total_remaining_qty?$total_remaining_qty:0;
 	}

@@ -28,12 +28,13 @@
         <table id="tbl_inventory_report" class="table table-striped table-bordered table-sm text-center">
           <thead>
             <tr>
+            <th width="15">#</th>
               <th scope="col">Product Name</th>
-              <th scope="col">Price</th>
-              <th scope="col">Balance</th>
-              <th scope="col">Stock In</th>
-              <th scope="col">Stock Out</th>
+              <th scope="col">Stock in</th>
+              <th scope="col">Repair</th>
+              <th scope="col">Stock out</th>
               <th scope="col">Remaining</th>
+         
             </tr>
           </thead>
           <tbody>
@@ -62,24 +63,22 @@
       },
       "processing": true,
       "columns": [
+        {
+        "data": "product_id"
+      },
       {
         "data": "product_name"
       },
       {
-        "data": "price"
-      },
-      {
-        "data": "balance"
-      },
-      {
         "data": "stock_in"
-      },
-      {
+      },  {
+        "data": "for_repair"
+      },    {
         "data": "stock_out"
-      },
+      },  
       {
-        "data": "remaining_qty"
-      }
+        "data": "remaining_stock"
+      },
       ],
       // "createdRow": function( row, data, dataIndex) {
       //   if(data.total_quantity && data.amount){

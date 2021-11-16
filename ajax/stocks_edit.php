@@ -1,50 +1,25 @@
 <?php
 	include '../core/config.php';
-	$stock_id = $_POST["stock_id"];
-    $product = $_POST["product"];
-    $supplier = $_POST["supplier"];
-    $cost_price = $_POST["cost_price"];
-    $expiry_date = $_POST["expiry_date"];
-    $remaining_qty = $_POST["remaining_qty"];
-    $sold_qty = $_POST["sold_qty"];
-    $updated_qty = $_POST["updated_qty"];
-    $lot_no = $_POST["lot_no"];
+	$stock_id = $_POST["e_stock_id"];
+    $product = $_POST["e_product"];
+    $location_id = $_POST["e_location_id"];
+    $supplier = $_POST["e_supplier"];
+    $cost_price = $_POST["e_cost_price"];
+    $expiry_date = $_POST["e_expiry_date"];
+    $status = $_POST["e_status"];
+    $engine_number = $_POST["e_engine_number"];
+    if($status=='Healthy'||$status=='Malfunctioned'){
 
+    }
+    $date_repair = $_POST["e_sched_repair"];
+    $date_added = date("Y-m-d");
+  
     //EDIT DETAILS
-    $edit_stock = mysqli_query($conn,"UPDATE `tbl_stocks` SET `product_id` = '$product', `supplier_id` = '$supplier', `cost_price` = '$cost_price', `expiry_date` = '$expiry_date',`lot_no` = '$lot_no'  WHERE `stock_id` = '$stock_id'") or die(mysql_error());
+    $edit_stock = mysqli_query($conn,"UPDATE `tbl_stocks` SET `product_id` = '$product', `supplier_id` = '$supplier', `cost_price` = '$cost_price', `expiry_date` = '$expiry_date', `location_id` = '$location_id', `status` ='$status', `engine_number` = '$engine_number' , `date_repair` = '$date_repair' WHERE `stock_id` = '$stock_id'") or die(mysql_error());
     
     if($edit_stock){
 
-        //NEW QUANTITY
-        if($updated_qty>$remaining_qty){
-            $fquantity = $sold_qty +$updated_qty;
-
-
-            $edit = mysqli_query($conn,"UPDATE `tbl_stocks` SET `quantity` = '$fquantity' WHERE `tbl_stocks`.`stock_id` = '$stock_id'") or die(mysql_error());
-            if($edit){
-                echo 1;
-            }else{
-                echo 0;
-            }
-        }else if($updated_qty==$remaining_qty){
-            $edit1 = mysqli_query($conn,"UPDATE `tbl_stocks` SET `quantity` = '$updated_qty' WHERE `tbl_stocks`.`stock_id` = '$stock_id'") or die(mysql_error());
-            if($edit1){
-                echo 1;
-            }else{
-                echo 0;
-            }
-        }else if($updated_qty<$remaining_qty){
-
-
-            $fquantity = $sold_qty +$updated_qty;
-         
-            $edit2 = mysqli_query($conn,"UPDATE `tbl_stocks` SET `quantity` = '$fquantity' WHERE `tbl_stocks`.`stock_id` = '$stock_id'") or die(mysql_error());
-            if($edit2){
-                echo 1;
-            }else{
-                echo 0;
-            }
-        }
+        echo 1;
     }else{
         echo 0;
     }

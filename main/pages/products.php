@@ -23,13 +23,9 @@
             <tr>
               <th width="15"><input type="checkbox" id="checkProduct" onclick="checkAll()"></th>
               <th width="15">#</th>
-              <th>Brand Name</th>
-              <th>Generic Name</th>
+              <th>Machine Name</th>
               <th>Category / Description</th>
-              <th>Selling Price</th>
-              <th>Gross Price</th>
-              <th width="100">VATable</th>
-              <th width="100">Discountable</th>
+              
               <th width="100">Action</th>
             </tr>
           </thead>
@@ -54,29 +50,13 @@
         <form id="add_product_form">
           <div class="row">
             <div  class="col-8 offset-2 mb-3">
-              <label>Brand Name</label>
-              <input type="text" name="brand_name" class="form-control" placeholder="Brand Name">
+              <label>Machine Name</label>
+              <input type="text" name="brand_name" class="form-control" placeholder="Machine Name">
             </div>
-            <div  class="col-8 offset-2 mb-3">
-              <label>Generic Name</label>
-              <input type="text" name="generic_name" class="form-control" placeholder="Generic Name">
-            </div>
+          
             <div  class="col-8 offset-2 mb-3">
               <label>Category / Description</label>
               <textarea class="form-control" name="category_description" placeholder="type here..."></textarea>
-            </div>
-            <div  class="col-8 offset-2 mb-3">
-              <label>Selling Price</label>
-              <input type="number" name="product_price" class="form-control" placeholder="Selling Price" step=".01">
-            </div>
-            <div  class="col-8 offset-2 mb-3">
-              <label>Gross Price</label>
-              <input type="number" name="gross_price" class="form-control" placeholder="Gross Price" step=".01">
-            </div>
-            <div  class="col-8 offset-2 mb-3">
-              <label><input type="checkbox" name="is_vatable" value="1"> Vatable?</label>
-              <br>
-              <label><input type="checkbox" name="is_discountable" value="1"> Discountable?</label>
             </div>
             <div class="col-12 p-0">
               <hr>
@@ -105,31 +85,14 @@
         <form id="edit_product_form">
           <div class="row">
             <div  class="col-8 offset-2 mb-3">
-              <label>Brand Name</label>
+              <label>Machine Name</label>
               <input type="text" name="brand_name" id="brand_name" class="form-control" placeholder="Brand Name">
               <input type="hidden" name="product_id" id="product_id">
             </div>
-            <div  class="col-8 offset-2 mb-3">
-              <label>Generic Name</label>
-              <input type="text" name="generic_name" id="generic_name" class="form-control" placeholder="Generic Name">
-            </div>
+            
             <div  class="col-8 offset-2 mb-3">
               <label>Category / Description</label>
               <textarea class="form-control" name="category_description" id="category_description" placeholder="type here..."></textarea>
-            </div>
-            <div  class="col-8 offset-2 mb-3">
-              <label>Selling Price</label>
-              <input type="number" name="product_price" id="product_price" class="form-control" placeholder="Product Price" step=".01">
-            </div>
-
-            <div  class="col-8 offset-2 mb-3">
-              <label>Gross Price</label>
-              <input type="number" name="gross_price" id="gross_price" class="form-control" placeholder="Product Price" step=".01">
-            </div>
-
-            <div  class="col-8 offset-2 mb-3">
-              <label><input type="checkbox" id="is_vatable" value="1"> Vatable?</label><br>
-              <label><input type="checkbox" id="is_discountable" value="1"> Discountable?</label>
             </div>
             <div class="col-12 p-0">
               <hr>
@@ -181,23 +144,9 @@
       {
         "data": "brand_name"
       },
-      {
-        "data": "generic_name"
-      },
+  
       {
         "data": "category_description"
-      },
-      {
-        "data": "price"
-      },
-      {
-        "data": "gross_price"
-      },
-      {
-        "data": "is_vatable"
-      },
-      {
-        "data": "is_discountable"
       },
       {
         "mRender": function(data, type, row){
@@ -242,16 +191,8 @@
         $("#edit_product").modal();
         var o = JSON.parse(data);
         $("#brand_name").val(o.brand_name);
-        $("#generic_name").val(o.generic_name);
+    
         $("#category_description").val(o.category_description);
-        var product_price = o.price;
-        var gross_price = o.gross_price;
-        $("#gross_price").val(gross_price);
-        $("#product_price").val(product_price);
-        var is_vatable = o.is_vatable==1?true:false;
-        $("#is_vatable").prop("checked",is_vatable);
-        var is_discountable = o.is_discountable==1?true:false;
-        $("#is_discountable").prop("checked",is_discountable);
         $("#product_id").val(product_id);
       }
     });

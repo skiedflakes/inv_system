@@ -23,6 +23,10 @@
 		require '../main/pages/p_return.php';
 	}else if($pages == page_url("s_return")){
 		require '../main/pages/s_return.php';
+	}else if($pages == page_url("location")){
+		require '../main/pages/location.php';
+	}else if($pages == page_url("users")){
+		require '../main/pages/users.php';
 	}else{
 		require '../main/pages/404.php';
 	}
