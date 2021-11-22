@@ -23,7 +23,7 @@
             <tr>
               <th width="15"><input type="checkbox" id="checkProduct" onclick="checkAll()"></th>
               <th width="15">#</th>
-              <th>Machine Name</th>
+              <th>Equipment Name</th>
               <th>Category / Description</th>
               
               <th width="100">Action</th>
@@ -50,8 +50,8 @@
         <form id="add_product_form">
           <div class="row">
             <div  class="col-8 offset-2 mb-3">
-              <label>Machine Name</label>
-              <input type="text" name="brand_name" class="form-control" placeholder="Machine Name">
+              <label>Equipment Name</label>
+              <input type="text" name="brand_name" class="form-control" placeholder="Equipment Name">
             </div>
           
             <div  class="col-8 offset-2 mb-3">
@@ -85,8 +85,8 @@
         <form id="edit_product_form">
           <div class="row">
             <div  class="col-8 offset-2 mb-3">
-              <label>Machine Name</label>
-              <input type="text" name="brand_name" id="brand_name" class="form-control" placeholder="Brand Name">
+              <label>Equipment Name</label>
+              <input type="text" name="brand_name" id="brand_name" class="form-control" placeholder="Equipment Name">
               <input type="hidden" name="product_id" id="product_id">
             </div>
             

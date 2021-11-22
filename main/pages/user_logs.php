@@ -77,7 +77,7 @@
 <div class="main">
   
   <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-    <h1 class="h2"> <span class="text-muted">Stocks</span></h1>
+    <h1 class="h2"> <span class="text-muted">User Logs</span></h1>
     <div class="btn-toolbar mb-2 mb-md-0">
       <div class="h5 mr-5">
         <i class="fa fa-user mr-1"></i> Welcome: <?=$_SESSION["name"];?>
@@ -102,17 +102,12 @@
               <th width="15"><input type="checkbox" id="checkStock" onclick="checkAll()"></th>
               <th width="15">#</th>
               <th>Equipment Name</th>
-              <th>Supplier</th>
+            
               <th width="100">Engine No.</th>
               <th width="100">Location</th>
 
-              <th width="80">Unit Cost</th>
-
-              <th width="100">Date Purchase</th>
-              <th width="100">Repair Sched</th>
-              <th width="100">Status</th>
-              <th width="80">Actions</th>
-         
+              <th width="80">Last User</th>
+              <th width="80">Used Date</th>
             </tr>
           </thead>
           <tbody>
@@ -377,7 +372,7 @@
     $("#tbl_stocks").dataTable({
       "ajax": {
         "type": "POST",
-        "url": "../ajax/datatables/stocks_data.php",
+        "url": "../ajax/datatables/user_logs_data.php",
       },
       "processing": true,
       "columns": [
@@ -393,29 +388,16 @@
         "data": "product"
       },
       {
-        "data": "supplier_name"
-      },
-      {
         "data": "engine_number"
       },
       {
         "data": "location_name"
       },
       {
-        "data": "cost_price"
+        "data": "last_user"
       },
       {
-        "data": "expiry_date"
-      },
-      {
-        "data": "date_repair"
-      }, {
-        "data": "status"
-      },
-      {
-        "mRender": function(data, type, row){
-          return "<div class='dropdown'><button class='btn btn-sm btn-outline-dark'>Action</button> <div class='dropdown-content'  style='z-index: 1001; position: fixed;'> <a onclick='edit_stock("+row.stock_id+")'>Update Stocks</a><a onclick='print_qr("+row.stock_id+")'>Print QR</a></div></div>";
-        }
+        "data": "last_used_date"
       }
       ]
 

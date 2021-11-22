@@ -12,7 +12,7 @@
 		$list["generic_name"] = $row["generic_name"];
 		$list["category_description"] = $row["category_description"];
 		$list["price"] = $row["price"];
-		$list["is_vatable"] = $row["is_vatable"]==1?"<b>YES</b>":"<b>NO</b>";
+	
 		array_push($response["data"], $list);
 	}
 

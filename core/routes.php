@@ -27,6 +27,10 @@
 		require '../main/pages/location.php';
 	}else if($pages == page_url("users")){
 		require '../main/pages/users.php';
+	}else if($pages == page_url("user_logs")){
+		require '../main/pages/user_logs.php';
+	}else if($pages == page_url("equipment_report")){
+		require '../main/pages/equipment_report.php';
 	}else{
 		require '../main/pages/404.php';
 	}

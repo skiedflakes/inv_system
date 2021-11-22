@@ -223,7 +223,7 @@
       data: data,
       success: function(data){
         if(data == 1){
-          alert("Success! New supplier was added.");
+          alert("Success! New User was added.");
           $("#add_user").modal("hide");
           $("input").val("");
           get_users();
