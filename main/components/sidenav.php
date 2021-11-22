@@ -124,6 +124,36 @@
     $equipment_report = "";
     $p_return = "";
     $s_return = "";
+  }else if($page == page_url('user_logs')){
+    $dashboard = "";
+    $sales = "";
+    $products = "";
+    $suppliers = "";
+    $location = "";
+    $users = "";
+    $stocks = "";
+    $customers = "";
+    $sales_report = "";
+    $inv_report = "";
+    $user_logs = "active";
+    $equipment_report = "";
+    $p_return = "";
+    $s_return = "";
+  }else if($page == page_url('equipment_report')){
+    $dashboard = "";
+    $sales = "";
+    $products = "";
+    $suppliers = "";
+    $location = "";
+    $users = "";
+    $stocks = "";
+    $customers = "";
+    $sales_report = "";
+    $inv_report = "";
+    $user_logs = "";
+    $equipment_report = "active";
+    $p_return = "";
+    $s_return = "";
   }
 ?>
  <div class="sidebar-sticky pt-3">

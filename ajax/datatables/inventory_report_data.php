@@ -15,7 +15,18 @@
 		$list["stock_in"] = stock_in_qty($row["product_id"], $date, $conn);
 		$list["stock_out"] = stock_out_qty($row["product_id"], $date, $conn);
 	 	$list["for_repair"] = for_repair($row["product_id"], $date, $conn);
-		$list["remaining_stock"] = get_remaining_qty($row["product_id"], $date, $conn);
+		 $remaining_stock = get_remaining_qty($row["product_id"], $date, $conn);
+		$list["remaining_stock"] = $remaining_stock;
+		$warning_level = $row["warning_level"];
+		
+		if($warning_level<$remaining_stock){
+			$list["date_repair"] = "N/A";
+			$list["remaining_stock"] =	"<h3 class='btn  btn-sm btn-success'>$remaining_stock</h3>";
+		}else {
+			$list["date_repair"] = "N/A";
+			$list["remaining_stock"] =	"<h3 class='btn btn-sm btn-danger'>$remaining_stock</h3>";
+		}
+
 		array_push($response["data"], $list);
 	}
 

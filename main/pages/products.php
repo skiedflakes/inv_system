@@ -25,7 +25,7 @@
               <th width="15">#</th>
               <th>Equipment Name</th>
               <th>Category / Description</th>
-              
+              <th>Warning Level</th>
               <th width="100">Action</th>
             </tr>
           </thead>
@@ -52,6 +52,11 @@
             <div  class="col-8 offset-2 mb-3">
               <label>Equipment Name</label>
               <input type="text" name="brand_name" class="form-control" placeholder="Equipment Name">
+            </div>
+
+            <div  class="col-8 offset-2 mb-3">
+              <label>Warning level</label>
+              <input type="number" name="warning_level" class="form-control" placeholder="Warning level">
             </div>
           
             <div  class="col-8 offset-2 mb-3">
@@ -89,11 +94,18 @@
               <input type="text" name="brand_name" id="brand_name" class="form-control" placeholder="Equipment Name">
               <input type="hidden" name="product_id" id="product_id">
             </div>
+
+            <div  class="col-8 offset-2 mb-3">
+              <label>Warning level</label>
+              <input type="number" name="update_warning_level" id="update_warning_level" class="form-control" placeholder="Warning level">
+            </div>
             
             <div  class="col-8 offset-2 mb-3">
               <label>Category / Description</label>
               <textarea class="form-control" name="category_description" id="category_description" placeholder="type here..."></textarea>
             </div>
+
+       
             <div class="col-12 p-0">
               <hr>
               <div class="float-right pr-2">
@@ -144,9 +156,12 @@
       {
         "data": "brand_name"
       },
-  
       {
         "data": "category_description"
+      },
+      
+      {
+        "data": "warning_level"
       },
       {
         "mRender": function(data, type, row){
@@ -191,7 +206,7 @@
         $("#edit_product").modal();
         var o = JSON.parse(data);
         $("#brand_name").val(o.brand_name);
-    
+        $("#update_warning_level").val(o.warning_level);
         $("#category_description").val(o.category_description);
         $("#product_id").val(product_id);
       }

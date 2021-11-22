@@ -163,43 +163,87 @@
       },  
       {
         "mRender": function(data, type, row){
-          return "<div class='dropdown' style='margin-right:20px'><button class='btn btn-sm btn-outline-dark'>Action</button> <div class='dropdown-content'  style='z-index: 1001; position: fixed;'> <a onclick='Assessed("+row.equipment_report_id+")'>Assess</a><a onclick='Delete("+row.equipment_report_id+")'>Delete</a></div></div>";
+          if(row.status=='assessed'){
+            return "<div class='dropdown' style='margin-right:20px'><button class='btn btn-sm btn-outline-dark'>Action</button> <div class='dropdown-content'  style='z-index: 1001; position: fixed;'> <a onclick='Delete("+row.equipment_report_id+")'>Delete</a></div></div>";
+
+          }else{
+            return "<div class='dropdown' style='margin-right:20px'><button class='btn btn-sm btn-outline-dark'>Action</button> <div class='dropdown-content'  style='z-index: 1001; position: fixed;'><a onclick='Assessed("+row.equipment_report_id+")'>Assess</a><a onclick='Delete("+row.equipment_report_id+")'>Delete</a></div></div>";
+    
+          }
         }
       }
       ],
     });
   }
 
-  function Assessed(){
+  function Assessed(equipment_report_id){
     swal("Are you sure you want to Assess?", {
     buttons: ["Oh noez!", "Aww yiss!"],
     buttons: true,
     }).then((assess) => {
     if (assess) {
+      var url = "../ajax/equipment_report_update.php";
+    $.ajax({
+      type: "POST",
+      url: url,
+      data: {equipment_report_id: equipment_report_id},
+      success: function(data){
 
+      if(data==1){
         swal("Success status changed to Assessed", {
             icon: "success",
             });
+            inventory_report("<?=date('Y-m-d')?>");
+      }else{
+        swal("Failed", {
+          icon: "warning",
+            });
+      }
+
+      }
+    });
+       
     } else {
       
     }
     });
   }
 
-  function Delete(){
+  function Delete(equipment_report_id){
     swal("Are you sure you want to delete?", {
     buttons: ["Oh noez!", "Aww yiss!"],
     buttons: true,
     }).then((assess) => {
     if (assess) {
         
-        swal("Success Record was deleted", {
+      var url = "../ajax/equipment_report_delete.php";
+    $.ajax({
+      type: "POST",
+      url: url,
+      data: {equipment_report_id: equipment_report_id},
+      success: function(data){
+
+      if(data==1){
+        swal("Success status changed to Assessed", {
             icon: "success",
             });
+            inventory_report("<?=date('Y-m-d')?>");
+      }else{
+        swal("Failed", {
+          icon: "warning",
+            });
+      }
+
+      }
+    });
     } else {
       
     }
     });
+  }
+
+  function edit_user(use_id){
+   
   }
 
 

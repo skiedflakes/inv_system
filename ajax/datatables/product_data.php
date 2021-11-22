@@ -10,6 +10,7 @@
 		$list["product_id"] = $row["product_id"];
 		$list["brand_name"] = $row["brand_name"];
 		$list["generic_name"] = $row["generic_name"];
+		$list["warning_level"] = $row["warning_level"];
 		$list["category_description"] = $row["category_description"];
 		array_push($response["data"], $list);
 	}

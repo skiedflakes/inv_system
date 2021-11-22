@@ -80,27 +80,6 @@
         "data": "remaining_stock"
       },
       ],
-      // "createdRow": function( row, data, dataIndex) {
-      //   if(data.total_quantity && data.amount){
-      //     $("#total_qty").html(data.total_quantity);
-      //     $("#total_amt").html(data.total_amount);
-      //     $("#from-date").html(data.fromDate);
-      //     $("#to-date").html(data.toDate);
-      //   }
-      // },
-      // "initComplete": function( settings, json ) {
-      //   var api = this.api();
-      //   if(api.rows().count() == 0){
-      //     $("#total_qty").html(0);
-      //     $("#total_amt").html("0.00");
-
-      //     var from = $("input[name=from_date]").val();
-      //     var to = $("input[name=to_date]").val();
-      //     $("#from-date").html(from);
-      //     $("#to-date").html(to);
-      //   }
-      // }
-
     });
   }
 
