@@ -21,7 +21,7 @@
 			$list["status"] =	"<h3 class='btn  btn-sm btn-success'>Healthy</h3>";
 		}else if($status=="Repair"){
 			$list["date_repair"] = date("Y-m-d", strtotime($row["date_repair"]));
-			$list["status"] =	"<h3 class='btn  btn-sm btn-warning'>Repair</h3>";
+			$list["status"] =	"<h3 class='btn  btn-sm btn-warning'>for Repair</h3>";
 		}else if($status=="Malfunctioned"){
 			$list["date_repair"] = "N/A";
 			$list["status"] =	"<h3 class='btn btn-sm btn-danger'>Malfunctioned</h3>";
