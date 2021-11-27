@@ -509,10 +509,11 @@
       success: function(data){
         $("#print_qr").modal();
         var o = JSON.parse(data);
-        var to_encrpyt = o.stock_id+"-"+o.engine_number;
-        var passhash = CryptoJS.MD5(to_encrpyt).toString();
+        var generate_qr = o.stock_id+"-"+o.engine_number;
+     
+     
         $("#qrcode").html("");
-        var qrc = new QRCode(document.getElementById("qrcode"),passhash);
+        var qrc = new QRCode(document.getElementById("qrcode"),generate_qr);
       }
     });
   }

@@ -26,11 +26,20 @@
 			$list["date_repair"] = "N/A";
 			$list["status"] =	"<h3 class='btn btn-sm btn-danger'>Malfunctioned</h3>";
 		}
+
+		$list["last_user"] =get_user_name($row["used_by"],$conn);
+		if(get_user_name($row["used_by"],$conn)=="Not used"){
+			$list["last_used_date"] ="N/A";
+		}else{
+			$list["last_used_date"] =date("Y-m-d H:i:s a", strtotime($row["used_date"]));
+		}
+	
+
+
 		
 		$list["supplier_name"] = $row["supplier_name"];
 		$list["expiry_date"] = date("Y-m-d", strtotime($row["expiry_date"]));
-		$list["last_user"] = $row["used_by"];
-		$list["last_used_date"] =date("Y-m-d H:i:s a", strtotime($row["used_date"]));
+	
 	
 		$list["date_added"] = date("Y-m-d", strtotime($row["date_added"]));
 		array_push($response["data"], $list);

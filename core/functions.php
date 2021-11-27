@@ -17,6 +17,20 @@
 		return $customer_data[0];
 	}
 
+	
+	function get_user_name($user_id, $conn){
+		$query = mysqli_query($conn, "SELECT name FROM tbl_users WHERE user_id = '$user_id'");
+		$user_data = mysqli_fetch_array($query);
+		$check_counter = mysqli_num_rows($query);
+
+		if($check_counter>0){
+			return $user_data[0];
+		}else{
+			return "Not used";
+		}
+		
+	}
+
 	function get_product_name($product_id, $conn){
 		$product_data = mysqli_fetch_array(mysqli_query($conn, "SELECT brand_name, generic_name FROM tbl_products WHERE product_id = '$product_id'"));
 		return $product_data[0].", ".$product_data[1];
