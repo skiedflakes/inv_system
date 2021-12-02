@@ -161,7 +161,7 @@
       <span>navigation</span>
     </h6>
     <ul class="nav flex-column">
-      <?php if($_SESSION["role"] == 0){?>
+
         <li class="nav-item">
           <a class="nav-link h6 <?=$users?>" href="index.php?page=<?=page_url('users')?>">
             <span class="fa fa-users"></span>
@@ -192,10 +192,10 @@
               Stocks
           </a>
         </li>
-      <?php } ?>
+
     </ul>
 
-    <?php if($_SESSION["role"] == 0){?>
+  
       <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
         <span>reports</span>
       </h6>
@@ -223,5 +223,5 @@
           </a>
         </li>
       </ul>
-    <?php } ?>
+
 </div>

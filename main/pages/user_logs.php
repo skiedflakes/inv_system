@@ -80,7 +80,7 @@
     <h1 class="h2"> <span class="text-muted">User Logs</span></h1>
     <div class="btn-toolbar mb-2 mb-md-0">
       <div class="h5 mr-5">
-        <i class="fa fa-user mr-1"></i> Welcome: <?=$_SESSION["name"];?>
+      <i class="fa fa-user mr-1"></i> Welcome: <?=$_SESSION["name"];?> <?php if($_SESSION["role"]==0){echo "(Super Admin)";}else if($_SESSION["role"]==1){echo "(Property Personnel)";}else if($_SESSION["role"]==2){echo "(Laboratory Staff)";} ?>
       </div>
       <div class="h5">
         <i class="far fa-calendar mr-1"></i> <?=date("F d, Y");?>

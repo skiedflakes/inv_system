@@ -1,7 +1,5 @@
 <?php
-	
 	include 'core/config.php';
-	
 ?>
 <!DOCTYPE html>
 <html>
@@ -174,7 +172,11 @@
 				success: function(data){
 					if(data == 1){
 						alert("Success! Press okay to continue...");
-						window.location="main/index.php?page=<?=page_url('products')?>";
+						window.location="main/index.php?page=<?=page_url('users')?>";
+					}else if(data == 2){
+						alert("Error: Account has no access in web portal");
+						$(".btn-signin").prop("disabled", false);
+						$(".btn-signin").html("Sign in");
 					}else{
 						alert("Error: Username or password incorrect.");
 						$(".btn-signin").prop("disabled", false);

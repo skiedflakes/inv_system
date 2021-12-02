@@ -8,9 +8,7 @@
     $expiry_date = $_POST["e_expiry_date"];
     $status = $_POST["e_status"];
     $engine_number = $_POST["e_engine_number"];
-    if($status=='Healthy'||$status=='Malfunctioned'){
-
-    }
+    date_default_timezone_set('Asia/Manila');
     $date_repair = $_POST["e_sched_repair"];
     $date_added = date("Y-m-d");
   

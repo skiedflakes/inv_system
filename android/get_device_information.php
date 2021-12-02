@@ -23,7 +23,7 @@
 			if(get_user_name($row["used_by"],$conn)=="Not used"){
 				$list["used_date"] ="N/A";
 			}else{
-				$list["used_date"] =date("Y-m-d H:i a", strtotime($row["used_date"]));
+				$list["used_date"] =date("Y-m-d h:i:s a", strtotime($row["used_date"]));
 			}
 		
 			$list["engine_number"] =$row["engine_number"];

@@ -1,9 +1,8 @@
 <?php
 	include '../core/config.php';
 	session_start();
-
-	
 	$page = isset($_GET['page'])&&$_GET['page']!=""?$_GET['page']:"404";
+	
 ?>
 <!DOCTYPE html>
 <html>
@@ -141,7 +140,7 @@
 	<body>		
 		<nav class="navbar navbar-light sticky-top flex-md-nowrap p-0 shadow" style="background-color: black;">
 		  <a class="navbar-brand col-md-3 col-lg-2 mr-0 px-3" href="dashboard.php"><h4 style="margin-bottom: 0;
-    font-weight: bold;color: white">INVENTORY SYSTEM <i class="fa fa-mug-hot" style="color: gray;"></i></h4></a>
+    font-weight: bold;color: white">INVENTORY SYSTEM</h4></a>
 		  <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-toggle="collapse" data-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
 		    <span class="navbar-toggler-icon"></span>
 		  </button>

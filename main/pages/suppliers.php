@@ -3,7 +3,7 @@
     <h1 class="h2"> <span class="text-muted">Suppliers</span></h1>
     <div class="btn-toolbar mb-2 mb-md-0">
       <div class="h5 mr-5">
-        <i class="fa fa-user mr-1"></i> Welcome: <?=$_SESSION["name"];?>
+      <i class="fa fa-user mr-1"></i> Welcome: <?=$_SESSION["name"];?> <?php if($_SESSION["role"]==0){echo "(Super Admin)";}else if($_SESSION["role"]==1){echo "(Property Personnel)";}else if($_SESSION["role"]==2){echo "(Laboratory Staff)";} ?>
       </div>
       <div class="h5">
         <i class="far fa-calendar mr-1"></i> <?=date("F d, Y");?>
@@ -13,10 +13,11 @@
 
   <div class="row mb-2">
     <div class="col-12">
+    <?php if($_SESSION["role"] == 0||$_SESSION["role"] == 1){?>
       <div class="btn-group mb-3 float-right">
         <button class="btn btn-sm btn-outline-success" data-toggle="modal" data-target="#add_supplier">Add</button>
-        <button class="btn btn-sm btn-outline-danger" onclick="delete_supplier()">Delete</button>
-      </div>
+        <button class="btn btn-sm btn-outline-danger" onclick="delete_user()">Delete</button>
+      </div>    <?php } ?>
       <div class="table-responsive">
         <table id="tbl_suppliers" class="table table-striped table-bordered table-sm">
           <thead>
@@ -24,7 +25,7 @@
               <th width="15"><input type="checkbox" id="checkSupplier" onclick="checkAll()"></th>
               <th width="15">#</th>
               <th>Supplier Name</th>
-              <th width="100">Action</th>
+              <?php if($_SESSION["role"] == 0||$_SESSION["role"] == 1){?> <th width="100">Action</th> <?php } ?>   
             </tr>
           </thead>
           <tbody>
@@ -99,7 +100,7 @@
 <!-- PAGE SCRIPT -->
 <script type="text/javascript">
   $(document).ready( function(){
-    get_suppliers();
+    get_suppliers(<?php echo $_SESSION['role']?>);
   });
 
   function checkAll(){
@@ -112,8 +113,34 @@
     }
   }
 
-  function get_suppliers(){
-    $("#tbl_suppliers").DataTable().destroy();
+  function get_suppliers(val){
+    if(val==2){
+
+      $("#tbl_suppliers").DataTable().destroy();
+    $("#tbl_suppliers").dataTable({
+      "ajax": {
+        "type": "POST",
+        "url": "../ajax/datatables/supplier_data.php",
+      },
+      "processing": true,
+      "columns": [
+      {
+        "mRender": function(data, type, row){
+          return "<input type='checkbox' value='"+row.supplier_id+"' name='cb_supplier'>";
+        }
+      },
+      {
+        "data": "count"
+      },
+      {
+        "data": "supplier_name"
+      }
+      ]
+
+    });
+    }else{
+
+      $("#tbl_suppliers").DataTable().destroy();
     $("#tbl_suppliers").dataTable({
       "ajax": {
         "type": "POST",
@@ -140,6 +167,8 @@
       ]
 
     });
+    }
+
   }
 
   $("#add_supplier_form").submit( function(e){
@@ -155,7 +184,7 @@
           alert("Success! New supplier was added.");
           $("#add_supplier").modal("hide");
           $("input").val("");
-          get_suppliers();
+          get_suppliers(1);
         }else{
           alert("Error: "+data);
         }
@@ -190,7 +219,7 @@
           alert("Success! Supplier was updated.");
           $("#edit_supplier").modal("hide");
           $("input").val("");
-          get_suppliers();
+          get_suppliers(1);
         }else{
           alert("Error: "+data);
         }
@@ -216,7 +245,7 @@
           success: function(data){
             if(data != 0){
               alert("Success! Selected Supplier/s was deleted.");
-              get_suppliers();
+              get_suppliers(1);
             }else{
               alert("Error: "+data);
             }

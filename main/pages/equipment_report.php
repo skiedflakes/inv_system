@@ -80,7 +80,7 @@
     <h1 class="h2"> <span class="text-muted">Equipment Report</span></h1>
     <div class="btn-toolbar mb-2 mb-md-0">
       <div class="h5 mr-5">
-        <i class="fa fa-user mr-1"></i> Welcome: <?=$_SESSION["name"];?>
+      <i class="fa fa-user mr-1"></i> Welcome: <?=$_SESSION["name"];?> <?php if($_SESSION["role"]==0){echo "(Super Admin)";}else if($_SESSION["role"]==1){echo "(Property Personnel)";}else if($_SESSION["role"]==2){echo "(Laboratory Staff)";} ?>
       </div>
       <div class="h5">
         <i class="far fa-calendar mr-1"></i> <?=date("F d, Y");?>
@@ -99,7 +99,7 @@
     </div>
 
     <div class="col-12 report-container">
-      <h3 class="col-6 offset-3">Inventory Report as of <span id="to-date"><?=date('Y-m-d')?></span></h3>
+      <h3 class="col-6 offset-3">Equipment  Report as of <span id="to-date"><?=date('Y-m-d')?></span></h3>
       <div class="table-responsive">
         <table id="tbl_inventory_report" class="table table-striped table-bordered table-sm text-center">
           <thead>
@@ -107,6 +107,9 @@
             <th width="15">#</th>
               <th scope="col">Report</th>
               <th scope="col">Reported by</th>
+              <th scope="col">Product</th>
+              <th scope="col">Engine Number</th>
+              <th scope="col">Location</th>
               <th scope="col">position</th>
               <th scope="col">Date added</th>
               <th scope="col">Date updated</th>
@@ -128,10 +131,10 @@
 <!-- PAGE SCRIPT -->
 <script type="text/javascript">
   $(document).ready( function(){
-    inventory_report("<?=date('Y-m-d')?>");
+    equipment_report("<?=date('Y-m-d')?>");
   });
 
-  function inventory_report(asOfDate){
+  function equipment_report(asOfDate){
     $("#tbl_inventory_report").DataTable().destroy();
     $("#tbl_inventory_report").dataTable({
       "ajax": {
@@ -148,6 +151,15 @@
       },
       {
         "data": "name"
+      },
+      {
+        "data": "product_name"
+      },
+      {
+        "data": "engine_no"
+      },
+      {
+        "data": "location"
       },
       {
         "data": "position"
@@ -193,7 +205,7 @@
         swal("Success status changed to Assessed", {
             icon: "success",
             });
-            inventory_report("<?=date('Y-m-d')?>");
+            equipment_report("<?=date('Y-m-d')?>");
       }else{
         swal("Failed", {
           icon: "warning",
@@ -227,7 +239,7 @@
         swal("Success status changed to Assessed", {
             icon: "success",
             });
-            inventory_report("<?=date('Y-m-d')?>");
+            equipment_report("<?=date('Y-m-d')?>");
       }else{
         swal("Failed", {
           icon: "warning",
@@ -250,7 +262,7 @@
   $("#form_generate").submit( function(e){
     e.preventDefault();
     var date = $("input[name=as_of_date]").val();
-    inventory_report(date);
+    equipment_report(date);
   });
 
 </script>

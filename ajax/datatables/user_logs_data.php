@@ -31,7 +31,7 @@
 		if(get_user_name($row["used_by"],$conn)=="Not used"){
 			$list["last_used_date"] ="N/A";
 		}else{
-			$list["last_used_date"] =date("Y-m-d H:i:s a", strtotime($row["used_date"]));
+			$list["last_used_date"] =date("Y-m-d h:i:s a", strtotime($row["used_date"]));
 		}
 	
 

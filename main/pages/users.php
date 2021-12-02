@@ -3,7 +3,7 @@
     <h1 class="h2"> <span class="text-muted">Users</span></h1>
     <div class="btn-toolbar mb-2 mb-md-0">
       <div class="h5 mr-5">
-        <i class="fa fa-user mr-1"></i> Welcome: <?=$_SESSION["name"];?>
+        <i class="fa fa-user mr-1"></i> Welcome: <?=$_SESSION["name"];?> <?php if($_SESSION["role"]==0){echo "(Super Admin)";}else if($_SESSION["role"]==1){echo "(Property Personnel)";}else if($_SESSION["role"]==2){echo "(Laboratory Staff)";} ?>
       </div>
       <div class="h5">
         <i class="far fa-calendar mr-1"></i> <?=date("F d, Y");?>
@@ -13,10 +13,11 @@
 
   <div class="row mb-2">
     <div class="col-12">
+    <?php if($_SESSION["role"] == 0){?>
       <div class="btn-group mb-3 float-right">
         <button class="btn btn-sm btn-outline-success" data-toggle="modal" data-target="#add_user">Add</button>
         <button class="btn btn-sm btn-outline-danger" onclick="delete_user()">Delete</button>
-      </div>
+      </div>    <?php } ?>
       <div class="table-responsive">
         <table id="tbl_suppliers" class="table table-striped table-bordered table-sm">
           <thead>
@@ -28,7 +29,7 @@
               <th  width="100">User Level</th>
               <th  width="100">Position</th>
               <th  width="100">Status</th>
-              <th width="100">Action</th>
+              <?php if($_SESSION["role"] == 0){?> <th width="100">Action</th> <?php } ?>
             </tr>
           </thead>
           <tbody>
@@ -72,8 +73,10 @@
             <div  class="col-8 offset-2 mb-3">
               <label>User Level</label>
                <select class="custom-select d-flex" name="user_role" id ="user_role" style="width:100%;">
-                      <option value="0">Admin</option>
-                      <option value="1">User</option>
+               <option value="0">Admin</option>
+                      <option value="1">Property Personnel</option>
+                      <option value="2">Laboratory Staff</option>
+                      <option value="3">Faculty/Mobile User</option>
               </select>
             </div>
 
@@ -105,7 +108,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel"><i class="fa fa-edit"></i> Edit Usersa</h5>
+        <h5 class="modal-title" id="exampleModalLabel"><i class="fa fa-edit"></i> Edit User</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -123,12 +126,14 @@
               <label>User Level</label>
                <select class="custom-select d-flex" name="e_user_role" id ="e_user_role" style="width:100%;">
                       <option value="0">Admin</option>
-                      <option value="1">User</option>
+                      <option value="1">Property Personnel</option>
+                      <option value="2">Laboratory Staff</option>
+                      <option value="3">Faculty/Mobile User</option>
               </select>
             </div>
 
             <div  class="col-8 offset-2 mb-3">
-              <label>User Level</label>
+              <label>User Status</label>
                <select class="custom-select d-flex" name="e_status" id ="e_status" style="width:100%;">
                       <option value="Active">Active</option>
                       <option value="In-active">In-active</option>
@@ -162,7 +167,7 @@
 <!-- PAGE SCRIPT -->
 <script type="text/javascript">
   $(document).ready( function(){
-    get_users();
+    get_users(<?php echo $_SESSION['role']; ?>);
   });
 
   function checkAll(){
@@ -175,8 +180,38 @@
     }
   }
 
-  function get_users(){
-    $("#tbl_suppliers").DataTable().destroy();
+  function get_users(val){
+    if(val>0){   $("#tbl_suppliers").DataTable().destroy();
+    $("#tbl_suppliers").dataTable({
+      "ajax": {
+        "type": "POST",
+        "url": "../ajax/datatables/users_data.php",
+      },
+      "processing": true,
+      "columns": [
+      {
+        "mRender": function(data, type, row){
+          return "<input type='checkbox' value='"+row.user_id+"' name='cb_user'>";
+        }
+      },
+      {
+        "data": "count"
+      },
+      {
+        "data": "name"
+      }, {
+        "data": "user_no"
+      }, {
+        "data": "role"
+      }, {
+        "data": "position"
+      }, {
+        "data": "status"
+      }
+      ]
+
+    });}else{
+      $("#tbl_suppliers").DataTable().destroy();
     $("#tbl_suppliers").dataTable({
       "ajax": {
         "type": "POST",
@@ -205,12 +240,14 @@
       },
       {
         "mRender": function(data, type, row){
-          return "<button class='btn btn-sm btn-outline-dark' onclick='edit_user("+row.user_id+")'>Edit User</button>";
+          return "<button class='btn btn-sm btn-outline-dark' onclick='edit_user("+row.user_id+")' >Edit User</button>";
         }
       }
       ]
 
     });
+    }
+ 
   }
 
   $("#add_user_form").submit( function(e){
@@ -226,7 +263,7 @@
           alert("Success! New User was added.");
           $("#add_user").modal("hide");
           $("input").val("");
-          get_users();
+          get_users(0);
         }else{
           alert("Error: "+data);
         }
@@ -269,7 +306,7 @@
           alert("Success! User was updated.");
           $("#edit_user").modal("hide");
           $("input").val("");
-          get_users();
+          get_users(0);
         }else{
           alert("Error: "+data);
         }
@@ -296,7 +333,7 @@
           
             if(data != 0){
               alert("Success! Selected User/s was deleted.");
-              get_users();
+              get_users(0);
             }else{
               alert("Error: "+data);
             }

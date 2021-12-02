@@ -3,7 +3,7 @@
     <h1 class="h2"> <span class="text-muted">Products</span></h1>
     <div class="btn-toolbar mb-2 mb-md-0">
       <div class="h5 mr-5">
-        <i class="fa fa-user mr-1"></i> Welcome: <?=$_SESSION["name"];?>
+      <i class="fa fa-user mr-1"></i> Welcome: <?=$_SESSION["name"];?> <?php if($_SESSION["role"]==0){echo "(Super Admin)";}else if($_SESSION["role"]==1){echo "(Property Personnel)";}else if($_SESSION["role"]==2){echo "(Laboratory Staff)";} ?>
       </div>
       <div class="h5">
         <i class="far fa-calendar mr-1"></i> <?=date("F d, Y");?>
@@ -13,10 +13,11 @@
 
   <div class="row mb-2">
      <div class="col-12">
+     <?php if($_SESSION["role"] == 0||$_SESSION["role"] == 1){?>
       <div class="btn-group mb-3 float-right">
         <button class="btn btn-sm btn-outline-success" data-toggle="modal" data-target="#add_product">Add</button>
         <button class="btn btn-sm btn-outline-danger" onclick="delete_product()">Delete</button>
-      </div>
+      </div>  <?php } ?>
       <div class="table-responsive">
         <table id="tbl_products" class="table table-striped table-bordered table-sm">
           <thead>
@@ -26,7 +27,7 @@
               <th>Equipment Name</th>
               <th>Category / Description</th>
               <th>Warning Level</th>
-              <th width="100">Action</th>
+              <?php if($_SESSION["role"] == 0||$_SESSION["role"] == 1){?> <th width="100">Action</th> <?php } ?>   
             </tr>
           </thead>
           <tbody>
@@ -123,7 +124,7 @@
 <!-- PAGE SCRIPT -->
 <script type="text/javascript">
   $(document).ready( function(){
-    get_products();
+    get_products(<?php echo $_SESSION['role']?>);
   });
 
   function checkAll(){
@@ -136,8 +137,39 @@
     }
   }
 
-  function get_products(){
-    $("#tbl_products").DataTable().destroy();
+  function get_products(val){
+    if(val==2){
+      $("#tbl_products").DataTable().destroy();
+    $("#tbl_products").dataTable({
+      "ajax": {
+        "type": "POST",
+        "url": "../ajax/datatables/product_data.php",
+      },
+      "processing": true,
+      "columns": [
+      {
+        "mRender": function(data, type, row){
+          return "<input type='checkbox' value='"+row.product_id+"' name='cb_product'>";
+        }
+      },
+      {
+        "data": "count"
+      },
+      {
+        "data": "brand_name"
+      },
+      {
+        "data": "category_description"
+      },
+      
+      {
+        "data": "warning_level"
+      }
+      ]
+
+    });
+    }else{
+      $("#tbl_products").DataTable().destroy();
     $("#tbl_products").dataTable({
       "ajax": {
         "type": "POST",
@@ -171,6 +203,8 @@
       ]
 
     });
+    }
+  
   }
 
   $("#add_product_form").submit( function(e){
@@ -188,7 +222,7 @@
           $("input").val("");
           $("input[type=checkbox]").prop("checked", false);
           $("textarea").val("");
-          get_products();
+          get_products(1);
         }else{
           alert("Error: "+data);
         }
@@ -233,7 +267,7 @@
           $("#edit_product").modal("hide");
           $("input").val("");
           $("textarea").val("");
-          get_products();
+          get_products(1);
         }else{
           alert("Error: "+data);
         }
@@ -261,7 +295,7 @@
           success: function(data){
             if(data != 0){
               alert("Success! Selected Product/s was deleted.");
-              get_products();
+              get_products(1);
             }else{
               alert("Error: "+data);
             }
