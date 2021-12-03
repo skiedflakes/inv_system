@@ -16,7 +16,7 @@
     <?php if($_SESSION["role"] == 0||$_SESSION["role"] == 1){?>
       <div class="btn-group mb-3 float-right">
         <button class="btn btn-sm btn-outline-success" data-toggle="modal" data-target="#add_supplier">Add</button>
-        <button class="btn btn-sm btn-outline-danger" onclick="delete_user()">Delete</button>
+        <button class="btn btn-sm btn-outline-danger" onclick="delete_supplier()">Delete</button>
       </div>    <?php } ?>
       <div class="table-responsive">
         <table id="tbl_suppliers" class="table table-striped table-bordered table-sm">

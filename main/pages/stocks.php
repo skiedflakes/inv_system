@@ -1,5 +1,4 @@
 
-<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/buttons/1.5.6/js/dataTables.buttons.min.js"></script>
 <script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.flash.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
@@ -168,7 +167,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel"><i class="fa fa-plus"></i> Add stocks</h5>
+        <h5 class="modal-title" id="exampleModalLabel"><i class="fa fa-plus"></i> Add Stocks</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -220,7 +219,7 @@
              
             <div  class="col-8 offset-2 mb-3">
               <label>Engine Number</label>
-              <input type="text" name="engine_number" id = "engine_number" class="form-control" placeholder="Unit Cost" step=".01">
+              <input type="text" name="engine_number" id = "engine_number" class="form-control" placeholder="Engine Number" step=".01">
             </div>
           
             <div  class="col-8 offset-2 mb-3">
@@ -323,7 +322,7 @@
 
             <div  class="col-8 offset-2 mb-3">
               <label>Engine Number</label>
-              <input type="text" name="e_engine_number" id = "e_engine_number" class="form-control" placeholder="Unit Cost" step=".01">
+              <input type="text" name="e_engine_number" id = "e_engine_number" class="form-control" placeholder="Engine Number" step=".01">
             </div>
 
             

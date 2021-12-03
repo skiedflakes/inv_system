@@ -5,7 +5,7 @@
 	$warning_level = $_POST["update_warning_level"];
 	$category_description = $_POST["category_description"];
 
-	$edit = mysqli_query($conn,"UPDATE tbl_products SET brand_name = '$brand_name', warning_level = '$warning_level', category_description = '$category_description'") or die(mysqli_error($conn));
+	$edit = mysqli_query($conn,"UPDATE tbl_products SET brand_name = '$brand_name', warning_level = '$warning_level', category_description = '$category_description' where product_id = '$product_id'") or die(mysqli_error($conn));
 	if($edit){
 		echo 1;
 	}else{
