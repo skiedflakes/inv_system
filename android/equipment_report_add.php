@@ -11,7 +11,12 @@
 
 	$edit = mysqli_query($conn,"INSERT INTO tbl_equipment_report  SET status = 'pending', report_detail = '$report_detail', user_id = '$user_id' ,stock_id = '$stock_id', date_added ='$date_added',  date_updated ='$date_added'") or die(mysqli_error($conn));
 	if($edit){
-		echo 1;
+		$edit2 = mysqli_query($conn,"UPDATE tbl_stocks  SET report_flag = '1' where stock_id = '$stock_id'") or die(mysqli_error($conn));
+		if($edit2){
+			echo 1;
+		}else{
+			echo 0;
+		}
 	}else{
 		echo 0;
 	}

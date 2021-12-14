@@ -31,6 +31,8 @@
 		require '../main/pages/user_logs.php';
 	}else if($pages == page_url("equipment_report")){
 		require '../main/pages/equipment_report.php';
+	}else if($pages == page_url("category")){
+		require '../main/pages/category.php';
 	}else{
 		require '../main/pages/404.php';
 	}

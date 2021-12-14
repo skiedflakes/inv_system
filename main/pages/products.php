@@ -22,12 +22,13 @@
         <table id="tbl_products" class="table table-striped table-bordered table-sm">
           <thead>
             <tr>
-              <th width="15"><input type="checkbox" id="checkProduct" onclick="checkAll()"></th>
-              <th width="15">#</th>
-              <th>Equipment Name</th>
-              <th>Category / Description</th>
-              <th>Warning Level</th>
-              <?php if($_SESSION["role"] == 0||$_SESSION["role"] == 1){?> <th width="100">Action</th> <?php } ?>   
+              <th width="5%"><input type="checkbox" id="checkProduct" onclick="checkAll()"></th>
+              <th width="5%">#</th>
+              <th width="20%">Equipment Name</th>
+              <th width="20%">Category</th>
+              <th width="20%">Description</th>
+         
+              <?php if($_SESSION["role"] == 0||$_SESSION["role"] == 1){?> <th width="10%">Action</th> <?php } ?>   
             </tr>
           </thead>
           <tbody>
@@ -56,12 +57,26 @@
             </div>
 
             <div  class="col-8 offset-2 mb-3">
+              <label>Category</label>
+              <select class="custom-select d-flex" name="category_id" id="category_id" style="width:100%;">
+                 <option value="0">Select Category:</option>
+                     <?php 
+                        $supplier = mysqli_query($conn,"SELECT * FROM tbl_category");
+                        while($row = mysqli_fetch_array($supplier)){
+                      ?>
+                        <option 
+                      value="<?php echo $row['category_id'];?>"><?php echo $row['name']?></option>
+                      <?php } ?>
+                </select>
+            </div>
+
+            <div  class="col-8 offset-2 mb-3"  style="display:none">
               <label>Warning level</label>
-              <input type="number" name="warning_level" class="form-control" placeholder="Warning level">
+              <input type="number" name="warning_level" class="form-control" placeholder="Warning level" value="0" style="display:none">
             </div>
           
             <div  class="col-8 offset-2 mb-3">
-              <label>Category / Description</label>
+              <label>Description</label>
               <textarea class="form-control" name="category_description" placeholder="type here..."></textarea>
             </div>
             <div class="col-12 p-0">
@@ -97,12 +112,26 @@
             </div>
 
             <div  class="col-8 offset-2 mb-3">
+              <label>Category</label>
+              <select class="custom-select d-flex" name="e_category_id" id="e_category_id" style="width:100%;">
+                 <option value="0">Select Category:</option>
+                     <?php 
+                        $supplier = mysqli_query($conn,"SELECT * FROM tbl_category");
+                        while($row = mysqli_fetch_array($supplier)){
+                      ?>
+                        <option 
+                      value="<?php echo $row['category_id'];?>"><?php echo $row['name']?></option>
+                      <?php } ?>
+                </select>
+            </div>
+
+            <div  class="col-8 offset-2 mb-3"  style="display:none">
               <label>Warning level</label>
-              <input type="number" name="update_warning_level" id="update_warning_level" class="form-control" placeholder="Warning level">
+              <input type="number" name="update_warning_level" id="update_warning_level" class="form-control" placeholder="Warning level" value="0">
             </div>
             
             <div  class="col-8 offset-2 mb-3">
-              <label>Category / Description</label>
+              <label>Description</label>
               <textarea class="form-control" name="category_description" id="category_description" placeholder="type here..."></textarea>
             </div>
 
@@ -125,6 +154,8 @@
 <script type="text/javascript">
   $(document).ready( function(){
     get_products(<?php echo $_SESSION['role']?>);
+    $('.custom-select').select2();
+
   });
 
   function checkAll(){
@@ -160,10 +191,6 @@
       },
       {
         "data": "category_description"
-      },
-      
-      {
-        "data": "warning_level"
       }
       ]
 
@@ -189,11 +216,10 @@
         "data": "brand_name"
       },
       {
-        "data": "category_description"
+        "data": "category_name"
       },
-      
       {
-        "data": "warning_level"
+        "data": "category_description"
       },
       {
         "mRender": function(data, type, row){
@@ -243,6 +269,7 @@
         $("#update_warning_level").val(o.warning_level);
         $("#category_description").val(o.category_description);
         $("#product_id").val(product_id);
+        $("#e_category_id").val(o.category_id).trigger('change');
       }
     });
   }

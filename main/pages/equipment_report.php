@@ -206,7 +206,12 @@
             icon: "success",
             });
             equipment_report("<?=date('Y-m-d')?>");
-      }else{
+      }else if(data==2){
+        swal("Please Update Equipment status in supplies module", {
+          icon: "warning",
+            });
+      
+      }else {
         swal("Failed", {
           icon: "warning",
             });

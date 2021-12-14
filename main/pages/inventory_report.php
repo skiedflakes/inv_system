@@ -41,9 +41,10 @@
             <tr>
             <th width="15">#</th>
               <th scope="col">Product Name</th>
-              <th scope="col">Stock in</th>
-              <th scope="col">Repair</th>
-              <th scope="col">Stock out</th>
+              <th scope="col">Category Name</th>
+              <th scope="col">Serviceable</th>
+              <th scope="col">For Servicing</th>
+              <th scope="col">Non Serviceable</th>
               <th scope="col">Remaining</th>
          
             </tr>
@@ -83,6 +84,9 @@
       },
       {
         "data": "product_name"
+      },
+      {
+        "data": "category_name"
       },
       {
         "data": "stock_in"

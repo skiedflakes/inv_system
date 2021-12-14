@@ -88,7 +88,7 @@
 <div class="main">
   
   <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-    <h1 class="h2"> <span class="text-muted">Stocks</span></h1>
+    <h1 class="h2"> <span class="text-muted">Supplies</span></h1>
     <div class="btn-toolbar mb-2 mb-md-0">
       <div class="h5 mr-5">
       <i class="fa fa-user mr-1"></i> Welcome: <?=$_SESSION["name"];?> <?php if($_SESSION["role"]==0){echo "(Super Admin)";}else if($_SESSION["role"]==1){echo "(Property Personnel)";}else if($_SESSION["role"]==2){echo "(Laboratory Staff)";} ?>
@@ -113,7 +113,7 @@
               <th width="15"><input type="checkbox" id="checkStock" onclick="checkAll()"></th>
               <th width="15">#</th>
               <th>Equipment Name</th>
-              <th>Supplier</th>
+              <th>Brand</th>
               <th width="100">Engine No.</th>
               <th width="100">Location</th>
 
@@ -167,7 +167,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel"><i class="fa fa-plus"></i> Add Stocks</h5>
+        <h5 class="modal-title" id="exampleModalLabel"><i class="fa fa-plus"></i> Add Supply</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -189,9 +189,9 @@
               </select>
             </div>
             <div  class="col-8 offset-2 mb-3">
-              <label>Supplier</label>
+              <label>Brand</label>
               <select class="custom-select d-flex" id="supplier_id" style="width:100%;">
-                 <option value="0">Select Supplier:</option>
+                 <option value="0">Select Brand:</option>
                      <?php 
                         $supplier = mysqli_query($conn,"SELECT * FROM tbl_supplier");
                         while($row = mysqli_fetch_array($supplier)){
@@ -251,7 +251,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel"><i class="fa fa-edit"></i> Update Stock</h5>
+        <h5 class="modal-title" id="exampleModalLabel"><i class="fa fa-edit"></i> Update Supply</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -275,9 +275,9 @@
             </div>
 
             <div class="col-8 offset-2 mb-3">
-              <label>Supplier</label>
+              <label>Brand</label>
               <select class="custom-select d-flex" name="e_supplier" id="e_supplier" style="width:100%;">
-                 <option value="0">Select Supplier:</option>
+                 <option value="0">Select Brand:</option>
                      <?php 
                         $supplier = mysqli_query($conn,"SELECT * FROM tbl_supplier");
                         while($row = mysqli_fetch_array($supplier)){
@@ -317,7 +317,7 @@
          
             <div id="Repair" class="col-8 offset-2 mb-3" style="display:none">
               <label>Schedule for Repair</label>
-              <input type="date" name="e_sched_repair" id="e_sched_repair" class="form-control">
+              <input type="date" name="e_sched_repair" id="e_sched_repair" class="form-control" min="<?php 	date_default_timezone_set('Asia/Manila'); echo date("Y-m-d"); ?>">
             </div>
 
             <div  class="col-8 offset-2 mb-3">
@@ -476,7 +476,7 @@
       },
       {
         "mRender": function(data, type, row){
-          return "<div class='dropdown'><button class='btn btn-sm btn-outline-dark'>Action</button> <div class='dropdown-content'  style='z-index: 1001; position: fixed;'> <a onclick='edit_stock("+row.stock_id+")'>Update Stocks</a><a onclick='print_qr("+row.stock_id+")'>Print QR</a></div></div>";
+          return "<div class='dropdown'><button class='btn btn-sm btn-outline-dark'>Action</button> <div class='dropdown-content'  style='z-index: 1001; position: fixed;'> <a onclick='edit_stock("+row.stock_id+")'>Update Supply</a><a onclick='print_qr("+row.stock_id+")'>Repair History</a><a onclick='print_qr("+row.stock_id+")'>Print QR</a></div></div>";
         }
       }
       ]
@@ -502,7 +502,7 @@
           data: {product_id: product_id, supplier_id: supplier_id, location_id: location_id, expiry_date: expiry_date, cost_price: cost_price,engine_number:engine_number},
           success: function (data) {
             if(data == 1){
-              alert("Success! New Product Stocks was added.");
+              alert("Success! New Product Supply was added.");
               $("#add_stock").modal("hide");
               $("input").val("");
               $("textarea").html("");
@@ -541,8 +541,11 @@
         $('#e_engine_number').val(o.engine_number).trigger('change');
         $('#e_cost_price').val(o.cost_price);
         $('#e_expiry_date').val(o.expiry_date);
-        $('#e_sched_repair').val(o.date_repair);
-      
+        if(o.status=='Repair'){
+          $('#e_sched_repair').val(o.date_repair);
+        }else{
+          $('#e_sched_repair').val(<?php 	date_default_timezone_set('Asia/Manila'); echo date("Y-m-d"); ?>);
+        }
       }
     });
   }
@@ -569,7 +572,7 @@
   $("#edit_stock_form").submit( function(e){
     e.preventDefault();
     var data = $(this).serialize();
-    console.log(data);
+
     var url = "../ajax/stocks_edit.php";
     $.ajax({
       type: "POST",
@@ -577,7 +580,7 @@
       data: data,
       success: function(data){
         if(data == 1){
-          alert("Success! Product Stocks was updated.");
+          alert("Success! Product Supply was updated.");
           $("#edit_stock").modal("hide");
           $("input").val("");
           $("textarea").html("");
@@ -607,7 +610,7 @@
           data: {stock_id: stock_id},
           success: function(data){
             if(data != 0){
-              alert("Success! Selected Product Stocks was deleted.");
+              alert("Success! Selected Product Supply was deleted.");
               get_stocks(1);
             }else{
               alert("Error: "+data);

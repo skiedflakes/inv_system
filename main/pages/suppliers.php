@@ -1,6 +1,6 @@
 <div class="main">
   <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-    <h1 class="h2"> <span class="text-muted">Suppliers</span></h1>
+    <h1 class="h2"> <span class="text-muted">Brand</span></h1>
     <div class="btn-toolbar mb-2 mb-md-0">
       <div class="h5 mr-5">
       <i class="fa fa-user mr-1"></i> Welcome: <?=$_SESSION["name"];?> <?php if($_SESSION["role"]==0){echo "(Super Admin)";}else if($_SESSION["role"]==1){echo "(Property Personnel)";}else if($_SESSION["role"]==2){echo "(Laboratory Staff)";} ?>
@@ -24,7 +24,7 @@
             <tr>
               <th width="15"><input type="checkbox" id="checkSupplier" onclick="checkAll()"></th>
               <th width="15">#</th>
-              <th>Supplier Name</th>
+              <th>Brand Name</th>
               <?php if($_SESSION["role"] == 0||$_SESSION["role"] == 1){?> <th width="100">Action</th> <?php } ?>   
             </tr>
           </thead>
@@ -40,7 +40,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel"><i class="fa fa-user-plus"></i> Add new Supplier</h5>
+        <h5 class="modal-title" id="exampleModalLabel"><i class="fa fa-user-plus"></i> Add new Brand</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -49,8 +49,8 @@
         <form id="add_supplier_form">
           <div class="row">
             <div  class="col-8 offset-2 mb-3">
-              <label>Supplier Name</label>
-              <input type="text" name="supplier_name" class="form-control" placeholder="Supplier Name">
+              <label>Brand Name</label>
+              <input type="text" name="supplier_name" class="form-control" placeholder="Brand Name">
             </div>
             <div class="col-12 p-0">
               <hr>
@@ -70,7 +70,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel"><i class="fa fa-edit"></i> Edit Supplier</h5>
+        <h5 class="modal-title" id="exampleModalLabel"><i class="fa fa-edit"></i> Edit Brand</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -79,8 +79,8 @@
         <form id="edit_supplier_form">
           <div class="row">
             <div  class="col-8 offset-2 mb-3">
-              <label>Supplier Name</label>
-              <input type="text" name="supplier_name" id="edit_supplier_name" class="form-control" placeholder="Supplier Name">
+              <label>Brand Name</label>
+              <input type="text" name="supplier_name" id="edit_supplier_name" class="form-control" placeholder="Brand Name">
               <input type="hidden" name="supplier_id" id="supplier_id">
             </div>
             <div class="col-12 p-0">
@@ -161,7 +161,7 @@
       },
       {
         "mRender": function(data, type, row){
-          return "<button class='btn btn-sm btn-outline-dark' onclick='edit_supplier("+row.supplier_id+")'>Edit Supplier</button>";
+          return "<button class='btn btn-sm btn-outline-dark' onclick='edit_supplier("+row.supplier_id+")'>Edit Brand</button>";
         }
       }
       ]
@@ -216,7 +216,7 @@
       data: data,
       success: function(data){
         if(data == 1){
-          alert("Success! Supplier was updated.");
+          alert("Success! Brand was updated.");
           $("#edit_supplier").modal("hide");
           $("input").val("");
           get_suppliers(1);
@@ -244,7 +244,7 @@
           data: {supp_id: supp_id},
           success: function(data){
             if(data != 0){
-              alert("Success! Selected Supplier/s was deleted.");
+              alert("Success! Selected Brand/s was deleted.");
               get_suppliers(1);
             }else{
               alert("Error: "+data);

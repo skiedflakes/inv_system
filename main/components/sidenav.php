@@ -12,6 +12,7 @@
     $inv_report = "";
     $user_logs = "";
     $equipment_report = "";
+    $category = "";
   }else if($page == page_url('suppliers')){
     $dashboard = "";
     $sales = "";
@@ -25,6 +26,7 @@
     $inv_report = "";
     $user_logs = "";
     $equipment_report = "";
+    $category = "";
   }else if($page == page_url('stocks')){
     $dashboard = "";
     $sales = "";
@@ -38,6 +40,7 @@
     $inv_report = "";
     $user_logs = "";
     $equipment_report = "";
+    $category = "";
   }else if($page == page_url('customers')){
     $dashboard = "";
     $sales = "";
@@ -51,6 +54,7 @@
     $inv_report = "";
     $user_logs = "";
     $equipment_report = "";
+    $category = "";
   }else if($page == page_url('sales_report')){
     $dashboard = "";
     $sales = "";
@@ -64,6 +68,7 @@
     $inv_report = "";
     $user_logs = "";
     $equipment_report = "";
+    $category = "";
   }
   else if($page == page_url('inventory_report')){
     $dashboard = "";
@@ -78,6 +83,7 @@
     $inv_report = "active";
     $user_logs = "";
     $equipment_report = "";
+    $category = "";
   }else if($page == page_url('p_return')){
     $dashboard = "";
     $sales = "";
@@ -93,6 +99,7 @@
     $equipment_report = "";
     $p_return = "active";
     $s_return = "";
+    $category = "";
   }
   else if($page == page_url('location')){
     $dashboard = "";
@@ -109,6 +116,7 @@
     $equipment_report = "";
     $p_return = "";
     $s_return = "";
+    $category = "";
   } else if($page == page_url('users')){
     $dashboard = "";
     $sales = "";
@@ -124,6 +132,7 @@
     $equipment_report = "";
     $p_return = "";
     $s_return = "";
+    $category = "";
   }else if($page == page_url('user_logs')){
     $dashboard = "";
     $sales = "";
@@ -139,6 +148,7 @@
     $equipment_report = "";
     $p_return = "";
     $s_return = "";
+    $category = "";
   }else if($page == page_url('equipment_report')){
     $dashboard = "";
     $sales = "";
@@ -152,6 +162,23 @@
     $inv_report = "";
     $user_logs = "";
     $equipment_report = "active";
+    $p_return = "";
+    $s_return = "";
+    $category = "";
+  }else if($page == page_url('category')){
+    $dashboard = "";
+    $sales = "";
+    $products = "";
+    $suppliers = "";
+    $category = "active";
+    $location = "";
+    $users = "";
+    $stocks = "";
+    $customers = "";
+    $sales_report = "";
+    $inv_report = "";
+    $user_logs = "";
+    $equipment_report = "";
     $p_return = "";
     $s_return = "";
   }
@@ -168,6 +195,13 @@
             Users
           </a>
         </li>
+        
+        <li class="nav-item">
+          <a class="nav-link h6 <?=$category?>" href="index.php?page=<?=page_url('category')?>">
+            <span class="fa fa-bars"></span>
+            Category
+          </a>
+        </li>
         <li class="nav-item">
           <a class="nav-link h6 <?=$products?>" href="index.php?page=<?=page_url('products')?>">
             <span class="fa fa-cubes"></span>
@@ -177,7 +211,7 @@
         <li class="nav-item">
           <a class="nav-link h6 <?=$suppliers?>" href="index.php?page=<?=page_url('suppliers')?>">
             <span class="fa fa-truck-moving"></span>
-            Suppliers
+            Brand
           </a>
         </li>
         <li class="nav-item">
@@ -189,7 +223,7 @@
         <li class="nav-item">
           <a class="nav-link h6 <?=$stocks?>" href="index.php?page=<?=page_url('stocks')?>">
               <span class="fa fa-file-alt"></span>
-              Stocks
+              Supplies
           </a>
         </li>
 
@@ -210,7 +244,7 @@
       <ul class="nav flex-column mb-2">
         <li class="nav-item">
          <a class="nav-link h6 <?=$user_logs?>" href="index.php?page=<?=page_url('user_logs')?>">
-            <span class="fa fa-archive"></span>
+            <span class="fa fa-address-card"></span>
            User Logs
           </a>
         </li>
@@ -218,8 +252,19 @@
       <ul class="nav flex-column mb-2">
         <li class="nav-item">
          <a class="nav-link h6 <?=$equipment_report?>" href="index.php?page=<?=page_url('equipment_report')?>">
-            <span class="fa fa-archive"></span>
-            Equipment Report
+         <span class="badge badge-pill badge-danger">
+           <?php
+
+            $conn = mysqli_connect("localhost","root", "",'inv_system');
+            date_default_timezone_set("Asia/Manila");
+            $sql = mysqli_query($conn,"SELECT * FROM `tbl_equipment_report` where status = 'pending'");
+            $row = mysqli_num_rows($sql);
+            echo $row;
+   
+         
+            ?>
+         </span>
+            Equipment Report 
           </a>
         </li>
       </ul>

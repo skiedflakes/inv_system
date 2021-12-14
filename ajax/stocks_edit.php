@@ -1,4 +1,6 @@
 <?php
+session_start();
+    $updated_by = $_SESSION["uid"];
 	include '../core/config.php';
 	$stock_id = $_POST["e_stock_id"];
     $product = $_POST["e_product"];
@@ -11,17 +13,35 @@
     date_default_timezone_set('Asia/Manila');
     $date_repair = $_POST["e_sched_repair"];
     $date_added = date("Y-m-d");
-  
-    //EDIT DETAILS
-    $edit_stock = mysqli_query($conn,"UPDATE `tbl_stocks` SET `product_id` = '$product', `supplier_id` = '$supplier', `cost_price` = '$cost_price', `expiry_date` = '$expiry_date', `location_id` = '$location_id', `status` ='$status', `engine_number` = '$engine_number' , `date_repair` = '$date_repair' WHERE `stock_id` = '$stock_id'") or die(mysql_error());
     
-    if($edit_stock){
 
-        echo 1;
+    if( $status=='Repair'){
+        $add = mysqli_query($conn,"INSERT INTO tbl_repair_history SET stock_id = '$stock_id', user_id = '$updated_by' , repair_date = '$date_repair', date_added='$date_added'") or die(mysqli_error($conn));
+        if($add){
+            $edit_stock = mysqli_query($conn,"UPDATE `tbl_stocks` SET `product_id` = '$product', `supplier_id` = '$supplier', `cost_price` = '$cost_price', `expiry_date` = '$expiry_date', `location_id` = '$location_id', `status` ='$status', `engine_number` = '$engine_number' , `date_repair` = '$date_repair', `reported_flag` ='0'  WHERE `stock_id` = '$stock_id'") or die(mysql_error());
+            
+            if($edit_stock){
+    
+                echo 1;
+            }else{
+                echo 0;
+            }
+        }else{
+            echo 0;
+        }
     }else{
-        echo 0;
-    }
+   //EDIT DETAILS
+        $edit_stock = mysqli_query($conn,"UPDATE `tbl_stocks` SET `product_id` = '$product', `supplier_id` = '$supplier', `cost_price` = '$cost_price', `expiry_date` = '$expiry_date', `location_id` = '$location_id', `status` ='$status', `engine_number` = '$engine_number' , `date_repair` = '$date_repair', `reported_flag` ='0'  WHERE `stock_id` = '$stock_id'") or die(mysql_error());
+            
+        if($edit_stock){
 
+            echo 1;
+        }else{
+            echo 0;
+        }
+
+    }
+ 
 
 
 

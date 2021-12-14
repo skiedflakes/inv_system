@@ -22,14 +22,14 @@
         <table id="tbl_suppliers" class="table table-striped table-bordered table-sm">
           <thead>
             <tr>
-              <th width="15"><input type="checkbox" id="checkSupplier" onclick="checkAll()"></th>
-              <th width="15">#</th>
-              <th  width="100">Name</th>
-              <th  width="100">User No.</th>
-              <th  width="100">User Level</th>
-              <th  width="100">Position</th>
-              <th  width="100">Status</th>
-              <?php if($_SESSION["role"] == 0){?> <th width="100">Action</th> <?php } ?>
+              <th width="5%"><input type="checkbox" id="checkSupplier" onclick="checkAll()"></th>
+              <th width="5%">#</th>
+              <th  width="15%">Name</th>
+              <th  width="10%">User No.</th>
+              <th  width="15%">User Level</th>
+              <th  width="10%">Position</th>
+              <th  width="10%">Status</th>
+              <?php if($_SESSION["role"] == 0){?> <th width="5%">Action</th> <?php } ?>
             </tr>
           </thead>
           <tbody>
